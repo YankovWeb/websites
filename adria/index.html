@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ADRIA — Детски образователен център</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Open Sans', sans-serif;
+      color: #4A4A4A;
+      background: #FFF8F0;
+      line-height: 1.6;
+    }
+    h1, h2, h3, h4 { font-family: 'Nunito', sans-serif; font-weight: 700; color: #3D2C3D; }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      background: #FFF8F0;
+      padding: 16px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+    }
+    header .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      font-size: 1.8rem;
+      color: #C9B8D9;
+      letter-spacing: 1px;
+    }
+    .logo span { color: #D4A5A5; }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a {
+      font-family: 'Nunito', sans-serif;
+      font-weight: 600;
+      font-size: 1rem;
+      color: #5A4A5A;
+      transition: color 0.3s;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #D4A5A5;
+      transition: width 0.3s;
+    }
+    .nav-links a:hover { color: #D4A5A5; }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .nav-toggle span { display: block; width: 28px; height: 3px; background: #5A4A5A; border-radius: 2px; transition: 0.3s; }
+
+    /* ===== HERO ===== */
+    .hero {
+      background: linear-gradient(135deg, #FFF8F0 0%, #F8EEF5 30%, #F0E8F5 60%, #FFF8F0 100%);
+      padding: 100px 0 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -60%;
+      left: -20%;
+      width: 60%;
+      height: 80%;
+      background: radial-gradient(circle, rgba(212,165,165,0.15) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -40%;
+      right: -10%;
+      width: 50%;
+      height: 70%;
+      background: radial-gradient(circle, rgba(201,184,217,0.15) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .hero .container { position: relative; z-index: 1; }
+    .hero-badge {
+      display: inline-block;
+      background: #F0E8F5;
+      color: #7B5A8A;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 600;
+      font-size: 0.9rem;
+      padding: 8px 20px;
+      border-radius: 50px;
+      margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      margin-bottom: 16px;
+      color: #3D2C3D;
+    }
+    .hero h1 .highlight { color: #D4A5A5; }
+    .hero p {
+      font-size: 1.15rem;
+      max-width: 640px;
+      margin: 0 auto 32px;
+      color: #6A5A6A;
+      line-height: 1.7;
+    }
+    .btn-primary {
+      display: inline-block;
+      background: linear-gradient(135deg, #D4A5A5, #C9B8D9);
+      color: #fff;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      padding: 16px 40px;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+      box-shadow: 0 4px 20px rgba(212,165,165,0.35);
+    }
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 30px rgba(212,165,165,0.45);
+    }
+
+    /* ===== SECTIONS COMMON ===== */
+    section { padding: 80px 0; }
+    .section-title {
+      text-align: center;
+      font-size: 2.2rem;
+      margin-bottom: 16px;
+      color: #3D2C3D;
+    }
+    .section-subtitle {
+      text-align: center;
+      font-size: 1.1rem;
+      color: #7A6A7A;
+      max-width: 600px;
+      margin: 0 auto 48px;
+    }
+
+    /* ===== ABOUT ===== */
+    .about { background: #fff; }
+    .about-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    .about-text h2 { font-size: 2rem; margin-bottom: 20px; }
+    .about-text p { margin-bottom: 16px; color: #5A5A5A; font-size: 1.05rem; }
+    .about-rating {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #F8EEF5;
+      padding: 10px 24px;
+      border-radius: 50px;
+      margin-top: 12px;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: #7B5A6A;
+    }
+    .about-rating .stars { color: #F4B942; font-size: 1.3rem; }
+    .about-visual {
+      background: linear-gradient(135deg, #F8EEF5, #F0E8F5);
+      border-radius: 24px;
+      padding: 48px 32px;
+      text-align: center;
+      min-height: 300px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .about-visual .big-icon { font-size: 4.5rem; margin-bottom: 16px; }
+    .about-visual h3 { font-size: 1.3rem; color: #5A4A5A; margin-bottom: 8px; }
+    .about-visual p { color: #7A6A7A; font-size: 0.95rem; }
+
+    /* ===== SERVICES ===== */
+    .services { background: #FFF8F0; }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+    .service-card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 36px 24px;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .service-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+    }
+    .service-card .icon {
+      font-size: 3rem;
+      margin-bottom: 16px;
+      display: block;
+    }
+    .service-card h3 {
+      font-size: 1.15rem;
+      margin-bottom: 12px;
+    }
+    .service-card p {
+      font-size: 0.95rem;
+      color: #6A5A6A;
+      line-height: 1.6;
+    }
+
+    /* ===== CONTACT ===== */
+    .contact { background: #fff; }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+    }
+    .contact-info h3 {
+      font-size: 1.5rem;
+      margin-bottom: 24px;
+    }
+    .contact-item {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .contact-item .ci-icon {
+      font-size: 1.4rem;
+      flex-shrink: 0;
+      width: 44px;
+      height: 44px;
+      background: #F8EEF5;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .contact-item h4 { font-size: 1rem; margin-bottom: 4px; }
+    .contact-item p { color: #6A5A6A; font-size: 0.95rem; }
+    .contact-item a { color: #D4A5A5; font-weight: 600; }
+    .contact-item a:hover { text-decoration: underline; }
+
+    .contact-form {
+      background: #F8EEF5;
+      padding: 40px;
+      border-radius: 24px;
+    }
+    .contact-form h3 { font-size: 1.4rem; margin-bottom: 24px; }
+    .form-group { margin-bottom: 16px; }
+    .form-group label {
+      display: block;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: 6px;
+      color: #5A4A5A;
+    }
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid #E8DDE8;
+      border-radius: 12px;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 1rem;
+      background: #fff;
+      transition: border-color 0.3s;
+      outline: none;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: #D4A5A5;
+    }
+    .form-group textarea { resize: vertical; min-height: 100px; }
+    .btn-submit {
+      display: inline-block;
+      background: linear-gradient(135deg, #D4A5A5, #C9B8D9);
+      color: #fff;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 14px 36px;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+      box-shadow: 0 4px 15px rgba(212,165,165,0.3);
+    }
+    .btn-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(212,165,165,0.4);
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: linear-gradient(135deg, #F0E8F5, #F8EEF5);
+      padding: 40px 0;
+      text-align: center;
+      border-top: 3px solid #E8DDE8;
+    }
+    footer .logo { margin-bottom: 12px; }
+    footer p {
+      color: #7A6A7A;
+      font-size: 0.95rem;
+      margin-top: 8px;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1024px) {
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: #FFF8F0;
+        flex-direction: column;
+        padding: 20px 24px;
+        gap: 20px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      }
+      .nav-toggle-input:checked ~ .nav-links { display: flex; }
+      .nav-toggle { display: flex; }
+      .hero { padding: 60px 0 50px; }
+      .hero h1 { font-size: 1.8rem; }
+      .about-content,
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+      .about-visual { min-height: 200px; padding: 32px 24px; }
+      .contact-form { padding: 28px; }
+      section { padding: 56px 0; }
+      .section-title { font-size: 1.8rem; }
+    }
+
+    @media (max-width: 480px) {
+      .services-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ===== HAMBURGER ANIMATION ===== */
+    .nav-toggle-input:checked + .nav-toggle span:nth-child(1) { transform: rotate(45deg) translate(5px, 6px); }
+    .nav-toggle-input:checked + .nav-toggle span:nth-child(2) { opacity: 0; }
+    .nav-toggle-input:checked + .nav-toggle span:nth-child(3) { transform: rotate(-45deg) translate(5px, -6px); }
+  </style>
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header>
+    <div class="container">
+      <div class="logo">A<span>DRI</span>A</div>
+      <input type="checkbox" id="navToggle" class="nav-toggle-input" aria-label="Меню" hidden>
+      <label for="navToggle" class="nav-toggle" aria-label="Меню">
+        <span></span>
+        <span></span>
+        <span></span>
+      </label>
+      <ul class="nav-links">
+        <li><a href="#about">За нас</a></li>
+        <li><a href="#services">Услуги</a></li>
+        <li><a href="#contact">Контакти</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero" id="hero">
+    <div class="container">
+      <div class="hero-badge">&#10024; Отворихме врати</div>
+      <h1>Детски образователен център<br><span class="highlight">ADRIA</span></h1>
+      <p>Място, където децата растат уверени, развиват талантите си и откриват света с усмивка. Цялостна грижа и образование за вашето дете.</p>
+      <a href="#contact" class="btn-primary">&#9990; Заявете консултация</a>
+    </div>
+  </section>
+
+  <!-- ===== ABOUT ===== -->
+  <section class="about" id="about">
+    <div class="container">
+      <div class="about-content">
+        <div class="about-text">
+          <h2>За ADRIA</h2>
+          <p>Детски образователен център ADRIA e създаден с мисията да предостави на децата среда за цялостно развитие – интелектуално, емоционално и физическо. Ние вярваме, че всяко дете е уникално и заслужава индивидуален подход.</p>
+          <p>Нашите програми съчетават съвременни образователни методи с творчески дейности и спорт, като същевременно осигуряваме качествена дневна грижа в топла и сигурна обстановка.</p>
+          <p>В ADRIA работим с малки групи, за да обърнем внимание на всяко дете и да подкрепим неговите интереси и заложби.</p>
+          <div class="about-rating">
+            <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+            5.0 &#9733; Google Maps
+          </div>
+        </div>
+        <div class="about-visual">
+          <div class="big-icon">&#127793;</div>
+          <h3>Отгледано с грижа</h3>
+          <p>Вашето дете заслужава най-доброто начало</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SERVICES ===== -->
+  <section class="services" id="services">
+    <div class="container">
+      <h2 class="section-title">Нашите услуги</h2>
+      <p class="section-subtitle">Разнообразни програми, съобразени с възрастта и интересите на вашето дете</p>
+      <div class="services-grid">
+        <div class="service-card">
+          <span class="icon">&#128218;</span>
+          <h3>Образователни програми</h3>
+          <p>Ранно чуждоезиково обучение, логика и математика чрез игри и интерактивни методи.</p>
+        </div>
+        <div class="service-card">
+          <span class="icon">&#127912;</span>
+          <h3>Творчески дейности</h3>
+          <p>Рисуване, музика, театър и ръкоделие – развиваме въображението и артистичните умения.</p>
+        </div>
+        <div class="service-card">
+          <span class="icon">&#9917;</span>
+          <h3>Спорт и движение</h3>
+          <p>Физическа активност, игри на открито и спортни занимания за здраве и координация.</p>
+        </div>
+        <div class="service-card">
+          <span class="icon">&#9998;</span>
+          <h3>Подготовка за училище</h3>
+          <p>Предучилищна подготовка с акцент върху четене, писане и социални умения.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT ===== -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <h2 class="section-title">Свържете се с нас</h2>
+      <p class="section-subtitle">Ще се радваме да ви посрещнем в ADRIA. Заповядайте на безплатен консултативен разговор.</p>
+      <div class="contact-grid">
+        <div class="contact-info">
+          <h3>Контакти</h3>
+          <div class="contact-item">
+            <div class="ci-icon">&#128205;</div>
+            <div>
+              <h4>Адрес</h4>
+              <p>ул. "Георги Русев" 28<br>ж.к. Малинова долина<br>1734 София</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="ci-icon">&#128197;</div>
+            <div>
+              <h4>Работно време</h4>
+              <p>Понеделник – Петък<br>9:00 – 19:00</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="ci-icon">&#128204;</div>
+            <div>
+              <h4>Google Maps</h4>
+              <p><a href="https://maps.app.goo.gl/Dsjs4k7AbKMcCKRM7" target="_blank">Отвори в Google Maps &rarr;</a></p>
+            </div>
+          </div>
+          <div class="contact-item" style="margin-top:32px;padding:20px 24px;background:#F8EEF5;border-radius:16px;">
+            <p style="color:#5A4A5A;font-family:'Nunito',sans-serif;font-weight:600;">&#128222; За запитвания: <a href="tel:+359XXXXXXXXX" style="color:#D4A5A5;">+359 XX XXX XXXX</a></p>
+          </div>
+        </div>
+        <div class="contact-form">
+          <h3>Изпратете запитване</h3>
+          <form>
+            <div class="form-group">
+              <label for="name">Вашето име</label>
+              <input type="text" id="name" name="name" placeholder="Име и фамилия" required>
+            </div>
+            <div class="form-group">
+              <label for="contactInfo">Телефон или имейл</label>
+              <input type="text" id="contactInfo" name="contactInfo" placeholder="+359 888 XXX XXX" required>
+            </div>
+            <div class="form-group">
+              <label for="message">Съобщение</label>
+              <textarea id="message" name="message" placeholder="Опишете накратко какво ви интересува..."></textarea>
+            </div>
+            <button type="submit" class="btn-submit">&#10148; Изпрати</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="container">
+      <div class="logo" style="font-size:1.5rem;">A<span>DRI</span>A</div>
+      <p>&copy; 2026 Детски образователен център ADRIA. Всички права запазени.</p>
+      <p style="font-size:0.85rem;color:#9A8A9A;margin-top:4px;">&#10084; Създадено с грижа за децата</p>
+    </div>
+  </footer>
+
+</body>
+</html>
