@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Cafe Sofia — Кафе в сърцето на София</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg-primary: #1a1a2e;
+      --bg-secondary: #16213e;
+      --bg-card: #1f2937;
+      --bg-card-hover: #252f3f;
+      --accent: #3ecf8e;
+      --accent-light: #4ade80;
+      --accent-glow: rgba(62, 207, 142, 0.25);
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --border: rgba(62, 207, 142, 0.15);
+      --radius: 12px;
+      --radius-lg: 20px;
+      --transition: 0.3s ease;
+      --section-padding: 4rem 1.25rem;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* ── Header ── */
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(26, 26, 46, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header__inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-weight: 700;
+      font-size: 1.1rem;
+      transition: color var(--transition);
+    }
+
+    .logo:hover {
+      color: var(--accent);
+    }
+
+    .logo__icon {
+      font-size: 1.5rem;
+    }
+
+    .nav {
+      display: none;
+      gap: 1.75rem;
+    }
+
+    .nav a {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      transition: color var(--transition);
+    }
+
+    .nav a:hover {
+      color: var(--accent);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.65rem 1.4rem;
+      border-radius: var(--radius);
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: background var(--transition), color var(--transition), transform var(--transition), box-shadow var(--transition);
+    }
+
+    .btn--primary {
+      background: var(--accent);
+      color: var(--bg-primary);
+    }
+
+    .btn--primary:hover {
+      background: var(--accent-light);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px var(--accent-glow);
+    }
+
+    .btn--outline {
+      background: transparent;
+      color: var(--accent);
+      border: 1.5px solid var(--accent);
+    }
+
+    .btn--outline:hover {
+      background: var(--accent);
+      color: var(--bg-primary);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px var(--accent-glow);
+    }
+
+    .btn--full {
+      width: 100%;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      padding: 5rem 1.25rem 4rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -40%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero__inner {
+      max-width: 720px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .hero__badge {
+      display: inline-block;
+      padding: 0.35rem 1rem;
+      background: rgba(62, 207, 142, 0.1);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      font-size: 0.8rem;
+      color: var(--accent);
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero__title {
+      font-size: clamp(2.2rem, 7vw, 3.5rem);
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 1.25rem;
+      letter-spacing: -0.02em;
+    }
+
+    .hero__title span {
+      color: var(--accent);
+    }
+
+    .hero__desc {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      max-width: 520px;
+      margin: 0 auto 2rem;
+    }
+
+    /* ── Sections ── */
+    .section {
+      padding: var(--section-padding);
+    }
+
+    .section--alt {
+      background: var(--bg-secondary);
+    }
+
+    .section__inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section__label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+
+    .section__title {
+      font-size: clamp(1.6rem, 4vw, 2.2rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+      letter-spacing: -0.02em;
+    }
+
+    .section__desc {
+      color: var(--text-secondary);
+      max-width: 600px;
+      font-size: 1rem;
+    }
+
+    /* ── About ── */
+    .about {
+      display: grid;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .about__visual {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      text-align: center;
+      font-size: 4rem;
+      transition: border-color var(--transition), transform var(--transition);
+    }
+
+    .about__visual:hover {
+      border-color: var(--accent);
+      transform: scale(1.02);
+    }
+
+    .about__text p {
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+      font-size: 1rem;
+    }
+
+    .about__text p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* ── Menu ── */
+    .menu-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+      margin-top: 2.5rem;
+    }
+
+    .menu-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      transition: background var(--transition), border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+    }
+
+    .menu-card:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--accent);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+    }
+
+    .menu-card__icon {
+      font-size: 2.5rem;
+      flex-shrink: 0;
+      width: 64px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(62, 207, 142, 0.08);
+      border-radius: var(--radius);
+    }
+
+    .menu-card__info {
+      flex: 1;
+    }
+
+    .menu-card__name {
+      font-weight: 600;
+      font-size: 1.05rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .menu-card__desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .menu-card__price {
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: var(--accent);
+      white-space: nowrap;
+    }
+
+    /* ── Contact ── */
+    .contact-wrapper {
+      display: grid;
+      gap: 2.5rem;
+      margin-top: 2.5rem;
+    }
+
+    .contact-form {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      margin-bottom: 0.5rem;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      background: var(--bg-primary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--text-primary);
+      font-family: inherit;
+      font-size: 0.95rem;
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-glow);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .contact-info__item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .contact-info__icon {
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+
+    .contact-info__label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.2rem;
+    }
+
+    .contact-info__value {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+    }
+
+    /* ── Footer ── */
+    .footer {
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border);
+      padding: 3rem 1.25rem 2rem;
+    }
+
+    .footer__inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .footer__grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .footer__brand {
+      font-weight: 700;
+      font-size: 1.15rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .footer__tagline {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .footer__heading {
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+
+    .footer__text {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
+    }
+
+    .footer__social {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 0.5rem;
+    }
+
+    .footer__social a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 42px;
+      height: 42px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      font-size: 1.2rem;
+      transition: background var(--transition), border-color var(--transition), transform var(--transition);
+    }
+
+    .footer__social a:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      transform: translateY(-3px);
+    }
+
+    .footer__bottom {
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* ── Responsive ── */
+    @media (min-width: 640px) {
+      .menu-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .footer__grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 768px) {
+      :root {
+        --section-padding: 5rem 2rem;
+      }
+
+      .nav {
+        display: flex;
+      }
+
+      .about {
+        grid-template-columns: 1fr 1.5fr;
+      }
+
+      .contact-wrapper {
+        grid-template-columns: 1.2fr 1fr;
+        align-items: start;
+      }
+
+      .footer__grid {
+        grid-template-columns: 2fr 1fr 1fr;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .menu-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .menu-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 2rem 1.5rem;
+      }
+
+      .menu-card__price {
+        margin-top: 0.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header__inner">
+      <a href="#" class="logo">
+        <span class="logo__icon">☕</span>
+        <span>Test Cafe Sofia</span>
+      </a>
+      <nav class="nav">
+        <a href="#about">За нас</a>
+        <a href="#menu">Меню</a>
+        <a href="#contact">Контакти</a>
+      </nav>
+      <a href="#contact" class="btn btn--primary">Контакти</a>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero__inner">
+      <span class="hero__badge">📍 София, България</span>
+      <h1 class="hero__title">Test Cafe <span>Sofia</span></h1>
+      <p class="hero__desc">
+        Специално избрани зърна, ръчно приготвен specialty coffee и уютна атмосфера в сърцето на столицата.
+      </p>
+      <a href="#menu" class="btn btn--primary">Виж менюто</a>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section class="section" id="about">
+    <div class="section__inner about">
+      <div class="about__visual">🏠</div>
+      <div class="about__text">
+        <p class="section__label">За нас</p>
+        <h2 class="section__title">Място, където кафето е изкуство</h2>
+        <p>
+          Test Cafe Sofia е независимо кафе в центъра на София, създадено с любов към specialty coffee културата. Работим директно с местни и международни roastery партньори, за да ви предложим най-доброто от света на кафето.
+        </p>
+        <p>
+          Нашето пространство е проектирано като уютен оазис — идеален за сутрешно espresso, следобедна работа с laptop или спокойна среща с приятели. Всяка чаша е приготвена с внимание и грижа.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Menu Preview -->
+  <section class="section section--alt" id="menu">
+    <div class="section__inner">
+      <p class="section__label">Меню</p>
+      <h2 class="section__title">Нашите специалитети</h2>
+      <p class="section__desc">Избрани напитки и десерти, приготвени с премиум съставки.</p>
+
+      <div class="menu-grid">
+        <article class="menu-card">
+          <div class="menu-card__icon">☕</div>
+          <div class="menu-card__info">
+            <h3 class="menu-card__name">Espresso</h3>
+            <p class="menu-card__desc">Single origin, двойно извличане</p>
+          </div>
+          <span class="menu-card__price">3.50 лв</span>
+        </article>
+
+        <article class="menu-card">
+          <div class="menu-card__icon">🍵</div>
+          <div class="menu-card__info">
+            <h3 class="menu-card__name">Капучино</h3>
+            <p class="menu-card__desc">Espresso + микропена от прясно мляко</p>
+          </div>
+          <span class="menu-card__price">4.80 лв</span>
+        </article>
+
+        <article class="menu-card">
+          <div class="menu-card__icon">🥛</div>
+          <div class="menu-card__info">
+            <h3 class="menu-card__name">Лате</h3>
+            <p class="menu-card__desc">Кремово, силно espresso, овесено мляко</p>
+          </div>
+          <span class="menu-card__price">5.20 лв</span>
+        </article>
+
+        <article class="menu-card">
+          <div class="menu-card__icon">🍰</div>
+          <div class="menu-card__info">
+            <h3 class="menu-card__name">Чийзкейк</h3>
+            <p class="menu-card__desc">Домашен, с горски плодове</p>
+          </div>
+          <span class="menu-card__price">6.50 лв</span>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="section" id="contact">
+    <div class="section__inner">
+      <p class="section__label">Контакти</p>
+      <h2 class="section__title">Свържете се с нас</h2>
+      <p class="section__desc">Имате въпрос или искате да резервирате? Пишете ни!</p>
+
+      <div class="contact-wrapper">
+        <form class="contact-form" action="#" method="post">
+          <div class="form-group">
+            <label for="name">Име</label>
+            <input type="text" id="name" name="name" placeholder="Вашето име" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Имейл</label>
+            <input type="email" id="email" name="email" placeholder="you@example.com" required>
+          </div>
+          <div class="form-group">
+            <label for="message">Съобщение</label>
+            <textarea id="message" name="message" placeholder="Вашето съобщение..." required></textarea>
+          </div>
+          <button type="submit" class="btn btn--primary btn--full">Изпрати</button>
+        </form>
+
+        <div class="contact-info">
+          <div class="contact-info__item">
+            <span class="contact-info__icon">📍</span>
+            <div>
+              <p class="contact-info__label">Адрес</p>
+              <p class="contact-info__value">ул. „Витоша" 42, 1000 София</p>
+            </div>
+          </div>
+          <div class="contact-info__item">
+            <span class="contact-info__icon">🕐</span>
+            <div>
+              <p class="contact-info__label">Работно време</p>
+              <p class="contact-info__value">Пон–Пет: 07:30 – 20:00<br>Съб–Нед: 09:00 – 18:00</p>
+            </div>
+          </div>
+          <div class="contact-info__item">
+            <span class="contact-info__icon">📧</span>
+            <div>
+              <p class="contact-info__label">Имейл</p>
+              <p class="contact-info__value">hello@testcafe.bg</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__grid">
+        <div>
+          <p class="footer__brand">☕ Test Cafe Sofia</p>
+          <p class="footer__tagline">Specialty coffee в сърцето на София.</p>
+          <div class="footer__social">
+            <a href="#" aria-label="Instagram">📸</a>
+            <a href="#" aria-label="Facebook">👍</a>
+            <a href="#" aria-label="TikTok">🎵</a>
+          </div>
+        </div>
+        <div>
+          <p class="footer__heading">Адрес</p>
+          <p class="footer__text">
+            ул. „Витоша" 42<br>
+            1000 София, България
+          </p>
+        </div>
+        <div>
+          <p class="footer__heading">Работно време</p>
+          <p class="footer__text">
+            Пон–Пет: 07:30 – 20:00<br>
+            Съб–Нед: 09:00 – 18:00
+          </p>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>&copy; 2026 Test Cafe Sofia. Всички права запазени.</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
